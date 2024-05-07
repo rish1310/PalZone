@@ -72,7 +72,7 @@ const Navbar = () => {
     }, [isSearchOpen]);
     const handleSearch = async () => {
         try {
-            const response = await fetch(`https://palzone-api.vercel.app/users/search?query=${searchQuery}`, {
+            const response = await fetch(`https://palzone.onrender.com/users/search?query=${searchQuery}`, {
                 method: "GET",
                 headers: { Authorization: `Bearer ${token}` },
             });

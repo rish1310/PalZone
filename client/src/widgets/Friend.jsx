@@ -14,7 +14,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     useEffect(() => {
         const fetchFriends = async () => {
             try {
-                const response = await fetch(`https://palzone-api.vercel.app/users/${_id}/friends`, {
+                const response = await fetch(`https://palzone.onrender.com/users/${_id}/friends`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -34,7 +34,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
     const patchFriend = async () => {
         try {
-            const response = await fetch(`https://palzone-api.vercel.app/users/${_id}/${friendId}`, {
+            const response = await fetch(`https://palzone.onrender.com/users/${_id}/${friendId}`, {
                 method: 'PATCH',
                 headers: {
                     Authorization: `Bearer ${token}`,

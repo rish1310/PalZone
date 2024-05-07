@@ -9,7 +9,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
     const token = useSelector((state) => state.token);
 
     const getPosts = async () => {
-        const response = await fetch("https://palzone-api.vercel.app/posts", {
+        const response = await fetch("https://palzone.onrender.com/posts", {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -19,7 +19,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
     const getUserPosts = async () => {
         const response = await fetch(
-            `https://palzone-api.vercel.app/posts/${userId}/posts`,
+            `https://palzone.onrender.com/posts/${userId}/posts`,
             {
                 method: "GET",
                 headers: { Authorization: `Bearer ${token}` },

@@ -14,7 +14,7 @@ const FriendListWidget = ({ userId }) => {
 
     const getFriends = async () => {
         const response = await fetch(
-            `https://palzone-api.vercel.app/users/${userId}/friends`,
+            `https://palzone.onrender.com/users/${userId}/friends`,
             {
                 method: "GET",
                 headers: { Authorization: `Bearer ${token}` },

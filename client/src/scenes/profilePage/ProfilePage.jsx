@@ -12,7 +12,7 @@ const ProfilePage = () => {
     const token = useSelector((state) => state.token);
 
     const getUser = async () => {
-        const response = await fetch(`https://palzone-api.vercel.app/users/${userId}`, {
+        const response = await fetch(`https://palzone.onrender.com/users/${userId}`, {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
         });
