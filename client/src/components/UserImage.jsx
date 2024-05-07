@@ -6,7 +6,7 @@ const UserImage = ({ image, size = "60px" }) => {
             <img
                 className="object-cover rounded-full"
                 alt="user"
-                src={`http://localhost:5000/assets/${image}`}
+                src={`https://palzone-api.vercel.app/assets/${image}`}
             />
         </div>
     );
