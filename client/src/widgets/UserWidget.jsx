@@ -32,7 +32,7 @@ const UserWidget = ({ userId, picturePath, friends }) => {
     }
 
     const { firstName, lastName, location, occupation, viewedProfile, impressions } = user;
-    console.log(picturePath)
+    // console.log(picturePath)
     return (
         <div className="p-4 bg-zinc-100 rounded-lg dark:bg-zinc-900">
             <div className="flex justify-between items-center pb-2 cursor-pointer" onClick={() => navigate(`/profile/${userId}`)}>
