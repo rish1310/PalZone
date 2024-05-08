@@ -229,26 +229,30 @@ const Navbar = () => {
                                 {/* <button onClick={() => navigate("/chat")} className="text-zinc-600 dark:text-white">
                                     <ChatIcon className="h-6 w-6" />
                                 </button> */}
+
+                                {/* <button onClick={() => navigate("/notifications")} className="text-zinc-600 dark:text-white">
+                                    <BellIcon className="h-6 w-6" />
+                                </button> */}
+
+                                <button onClick={() => { setIsDarkMode(!isDarkMode); dispatch(setMode()) }} className="text-zinc-600 dark:text-white transition-opacity duration-1000">
+                                    {isDarkMode ? <MoonIcon className="h-6 w-6 " /> : <SunIcon className="h-6 w-6" />}
+                                </button>
+
+                                <button>
+                                    <QuestionMarkCircleIcon className="h-6 w-6 text-zinc-700 dark:text-white" onClick={() => navigate("/about")} />
+                                </button>
+
                                 <div className="flex items-center justify-center bg-none hover:border-zinc-500 rounded leading-tight focus:outline-none focus:shadow-outline dark:text-white" onClick={toggleDropdown}>
                                     <img src={userProfilePicture} alt="Profile Picture" className="h-8 w-8 object-cover rounded-full border bg-gradient-to-br border-transparent bg-clip-border from-red-900 via-red-500 to-yellow-300" />
                                 </div>
                                 {isOpen && (
-                                    <div className="absolute z-10 mt-1 w-1/2 bottom-full bg-white border border-zinc-400 rounded shadow-md dark:bg-zinc-700 dark:text-zinc-100">
+                                    <div className="absolute z-10 mt-1 right-2 w-1/2 bottom-full bg-white border border-zinc-400 rounded shadow-md dark:bg-zinc-700 dark:text-zinc-100">
                                         <ul>
                                             <li className="hover:bg-zinc-100 px-4 py-2" onMouseDown={() => { navigate(`/profile/${user._id}`); navigate(0); }}>Profile</li>
                                             <li className="hover:bg-zinc-100 px-4 py-2" onMouseDown={handleLogout}>Log Out</li>
                                         </ul>
                                     </div>
                                 )}
-                                {/* <button onClick={() => navigate("/notifications")} className="text-zinc-600 dark:text-white">
-                                    <BellIcon className="h-6 w-6" />
-                                </button> */}
-                                <button>
-                                    <QuestionMarkCircleIcon className="h-6 w-6 text-zinc-700 dark:text-white" onClick={() => navigate("/about")} />
-                                </button>
-                                <button onClick={() => { setIsDarkMode(!isDarkMode); dispatch(setMode()) }} className="text-zinc-600 dark:text-white transition-opacity duration-1000">
-                                    {isDarkMode ? <MoonIcon className="h-6 w-6 " /> : <SunIcon className="h-6 w-6" />}
-                                </button>
 
                             </div>
 
