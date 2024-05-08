@@ -31,7 +31,7 @@ const router = createBrowserRouter(
       <Route path='' element={<LoginPageWrapper />} />
       <Route path='home' element={<HomePageWrapper />} />
       <Route path='profile/:userId' element={<ProfilePageWrapper />} />
-      <Route path='/about' element={<About />} />
+      <Route path='/about' element={<AboutPageWrapper />} />
     </Route>
   )
 );
@@ -47,6 +47,10 @@ function HomePageWrapper() {
 function LoginPageWrapper() {
   const isAuth = Boolean(useSelector((state) => state.token));
   return isAuth ? <Navigate to='/home' /> : <LoginPage />;
+}
+function AboutPageWrapper() {
+  const isAuth = Boolean(useSelector((state) => state.token));
+  return isAuth ? <About /> : <Navigate to='/' />;
 }
 
 
