@@ -191,7 +191,7 @@ const Form = () => {
                                                     {!values.picture ? (
                                                         <p>Add Picture Here</p>
                                                     ) : (
-                                                        <div className="flex justify-between">
+                                                        <div className="flex justify-between items-center">
                                                             <img src={URL.createObjectURL(values.picture)} alt="Uploaded" className="h-20 w-20 object-cover rounded" />
                                                             <p>{values.picture.name}</p>
                                                             <PencilIcon className="h-5 w-5 text-zinc-500" />
