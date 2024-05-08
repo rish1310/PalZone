@@ -159,7 +159,7 @@ app.use('/posts', postRoutes);
 
 // DEFAULT ROUTE
 app.get('/', (req, res) => {
-    res.send('Welcome to Palzone API');
+    res.send('OK');
 });
 
 // MONGOOSE SETUP
