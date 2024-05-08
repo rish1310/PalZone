@@ -157,6 +157,11 @@ app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/posts', postRoutes);
 
+// DEFAULT ROUTE
+app.get('/', (req, res) => {
+    res.send('Welcome to Palzone API');
+});
+
 // MONGOOSE SETUP
 const port = process.env.PORT || 5000;
 mongoose.connect(process.env.MONGO_URL, {}).then(() => {

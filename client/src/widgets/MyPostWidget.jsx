@@ -63,6 +63,7 @@ const MyPostWidget = ({ picturePath }) => {
                                     <p>Add Image Here</p>
                                 ) : (
                                     <div className="flex justify-between items-center">
+                                        <img src={URL.createObjectURL(image)} alt="Uploaded" className="h-20 w-20 object-cover rounded" />
                                         <p>{image.name}</p>
                                         <PaperClipIcon className="h-5 w-5" />
                                     </div>
@@ -90,10 +91,10 @@ const MyPostWidget = ({ picturePath }) => {
                         <span className="hidden md:block ml-2">Attachment</span>
                     </div>
 
-                    <div className="flex items-center text-primary-500 cursor-pointer">
+                    {/* <div className="flex items-center text-primary-500 cursor-pointer">
                         <MicrophoneIcon className="h-5 w-5" />
                         <span className="hidden md:block ml-2">Audio</span>
-                    </div>
+                    </div> */}
 
                     <button
                         disabled={!post}
