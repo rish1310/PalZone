@@ -2,22 +2,6 @@ import { useState } from 'react';
 import Form from './Form';
 
 const LoginPage = () => {
-    const [isNonMobileScreens, setIsNonMobileScreens] = useState(false);
-
-    // Function to check if the screen size is non-mobile
-    const checkIsNonMobileScreens = () => {
-        const screenWidth = window.innerWidth;
-        setIsNonMobileScreens(screenWidth >= 1000);
-    };
-
-    // Run the check when the component mounts
-    useState(() => {
-        checkIsNonMobileScreens();
-        window.addEventListener('resize', checkIsNonMobileScreens);
-        return () => {
-            window.removeEventListener('resize', checkIsNonMobileScreens);
-        };
-    }, []);
     return (
 
         <div className='flex justify-between'>
