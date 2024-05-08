@@ -3,6 +3,7 @@ import Dropzone from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../state/authSlice";
 import { PaperClipIcon, PhotographIcon, VideoCameraIcon, MicrophoneIcon, DotsHorizontalIcon } from '@heroicons/react/outline';
+import PulseLoader from 'react-spinners/PulseLoader';
 
 const MyPostWidget = ({ picturePath }) => {
     const dispatch = useDispatch();
@@ -11,8 +12,10 @@ const MyPostWidget = ({ picturePath }) => {
     const [post, setPost] = useState("");
     const { _id } = useSelector((state) => state.user);
     const token = useSelector((state) => state.token);
+    const [loading, setLoading] = useState(false);
 
     const handlePost = async () => {
+        setLoading(true);
         const formData = new FormData();
         formData.append("userId", _id);
         formData.append("description", post);
@@ -30,6 +33,7 @@ const MyPostWidget = ({ picturePath }) => {
         dispatch(setPosts({ posts }));
         setImage(null);
         setPost("");
+        setLoading(false);
     };
 
     return (
@@ -99,6 +103,9 @@ const MyPostWidget = ({ picturePath }) => {
                         POST
                     </button>
                 </div>
+            </div>
+            <div className="flex justify-center w-full">
+                <PulseLoader color="orange" loading={loading} size={10} />
             </div>
         </div>
     );

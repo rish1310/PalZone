@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "../../state/authSlice";
 import Dropzone from "react-dropzone";
 import { PencilIcon } from '@heroicons/react/outline';
+import PulseLoader from "react-spinners/PulseLoader";
 
 const registerSchema = yup.object().shape({
     firstName: yup.string().required("Required"),
@@ -38,6 +39,7 @@ const initialValuesLogin = {
 };
 
 const Form = () => {
+    const [loading, setLoading] = useState(false);
     const [pageType, setPageType] = useState("login");
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -46,7 +48,7 @@ const Form = () => {
     const [error, setError] = useState("");
 
     const register = async (values, onSubmitProps) => {
-
+        setLoading(true);
         const capitalizedFirstName = values.firstName.charAt(0).toUpperCase() + values.firstName.slice(1);
         const capitalizedLastName = values.lastName.charAt(0).toUpperCase() + values.lastName.slice(1);
 
@@ -73,9 +75,11 @@ const Form = () => {
         if (savedUser) {
             setPageType("login");
         }
+        setLoading(false);
     };
 
     const login = async (values, onSubmitProps) => {
+        setLoading(true);
         const loggedInResponse = await fetch("https://palzone.onrender.com/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -94,6 +98,7 @@ const Form = () => {
         } else {
             setError(loggedIn.msg);
         }
+        setLoading(false);
     };
 
     const handleFormSubmit = async (values, onSubmitProps) => {
@@ -102,153 +107,160 @@ const Form = () => {
     };
 
     return (
-        <Formik
-            onSubmit={handleFormSubmit}
-            initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
-            validationSchema={isLogin ? loginSchema : registerSchema}
-        >
-            {({
-                values,
-                errors,
-                touched,
-                handleBlur,
-                handleChange,
-                handleSubmit,
-                setFieldValue,
-                resetForm,
-            }) => (
-                <form onSubmit={handleSubmit}>
-                    <div className="grid gap-6 grid-cols-1 md:grid-cols-4 ">
-                        {isRegister && (
-                            <>
-                                <div className="col-span-4 md:col-span-2">
-                                    <input
-                                        type="text"
-                                        placeholder="First Name"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.firstName}
-                                        name="firstName"
-                                        className="w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
-                                    />
-                                    {touched.firstName && errors.firstName && (
-                                        <p className="text-red-500">{errors.firstName}</p>
-                                    )}
-                                </div>
-                                <div className="col-span-4 md:col-span-2">
-                                    <input
-                                        type="text"
-                                        placeholder="Last Name"
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.lastName}
-                                        name="lastName"
-                                        className="w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
-                                    />
-                                    {touched.lastName && errors.lastName && (
-                                        <p className="text-red-500">{errors.lastName}</p>
-                                    )}
-                                </div>
-                                <input
-                                    type="text"
-                                    placeholder="Location"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    value={values.location}
-                                    name="location"
-                                    className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800 "
-                                />
-                                <input
-                                    type="text"
-                                    placeholder="Occupation"
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    value={values.occupation}
-                                    name="occupation"
-                                    className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
-                                />
-                                <div className="col-span-4 border border-zinc-300 rounded p-4">
-                                    <Dropzone
-                                        acceptedFiles=".jpg,.jpeg,.png"
-                                        multiple={false}
-                                        onDrop={(acceptedFiles) =>
-                                            setFieldValue("picture", acceptedFiles[0])
-                                        }
-                                    >
-                                        {({ getRootProps, getInputProps }) => (
-                                            <div
-                                                {...getRootProps()}
-                                                className="border-2 border-dashed border-red-500 text-zinc-400 p-4 cursor-pointer dark:bg-zinc-800"
-                                            >
-                                                <input {...getInputProps()} />
-                                                {!values.picture ? (
-                                                    <p>Add Picture Here</p>
-                                                ) : (
-                                                    <div className="flex justify-between">
-                                                        <p>{values.picture.name}</p>
-                                                        <PencilIcon className="h-5 w-5 text-zinc-500" />
-                                                    </div>
-                                                )}
-                                            </div>
+        <>
+
+            <Formik
+                onSubmit={handleFormSubmit}
+                initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
+                validationSchema={isLogin ? loginSchema : registerSchema}
+            >
+                {({
+                    values,
+                    errors,
+                    touched,
+                    handleBlur,
+                    handleChange,
+                    handleSubmit,
+                    setFieldValue,
+                    resetForm,
+                }) => (
+                    <form onSubmit={handleSubmit}>
+                        <div className="grid gap-6 grid-cols-1 md:grid-cols-4 ">
+                            {isRegister && (
+                                <>
+                                    <div className="col-span-4 md:col-span-2">
+                                        <input
+                                            type="text"
+                                            placeholder="First Name"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.firstName}
+                                            name="firstName"
+                                            className="w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
+                                        />
+                                        {touched.firstName && errors.firstName && (
+                                            <p className="text-red-500">{errors.firstName}</p>
                                         )}
-                                    </Dropzone>
-                                </div>
-                            </>
-                        )}
+                                    </div>
+                                    <div className="col-span-4 md:col-span-2">
+                                        <input
+                                            type="text"
+                                            placeholder="Last Name"
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.lastName}
+                                            name="lastName"
+                                            className="w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
+                                        />
+                                        {touched.lastName && errors.lastName && (
+                                            <p className="text-red-500">{errors.lastName}</p>
+                                        )}
+                                    </div>
+                                    <input
+                                        type="text"
+                                        placeholder="Location"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.location}
+                                        name="location"
+                                        className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800 "
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="Occupation"
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        value={values.occupation}
+                                        name="occupation"
+                                        className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
+                                    />
+                                    <div className="col-span-4 border border-zinc-300 rounded p-4">
+                                        <Dropzone
+                                            acceptedFiles=".jpg,.jpeg,.png"
+                                            multiple={false}
+                                            onDrop={(acceptedFiles) =>
+                                                setFieldValue("picture", acceptedFiles[0])
+                                            }
+                                        >
+                                            {({ getRootProps, getInputProps }) => (
+                                                <div
+                                                    {...getRootProps()}
+                                                    className="border-2 border-dashed border-red-500 text-zinc-400 p-4 cursor-pointer dark:bg-zinc-800"
+                                                >
+                                                    <input {...getInputProps()} />
+                                                    {!values.picture ? (
+                                                        <p>Add Picture Here</p>
+                                                    ) : (
+                                                        <div className="flex justify-between">
+                                                            <p>{values.picture.name}</p>
+                                                            <PencilIcon className="h-5 w-5 text-zinc-500" />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </Dropzone>
+                                    </div>
+                                </>
+                            )}
 
-                        <input
-                            type="text"
-                            placeholder="Email"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.email}
-                            name="email"
-                            className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
-                        />
-                        {touched.email && errors.email && (
-                            <p className="text-red-500 col-span-4">{errors.email}</p>
-                        )}
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.password}
-                            name="password"
-                            className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
-                        />
-                        {touched.password && errors.password && (
-                            <p className="text-red-500 col-span-4">{errors.password}</p>
-                        )}
-                        {error && (
-                            <p className="text-red-500 col-span-4">{error}</p>
-                        )}
+                            <input
+                                type="text"
+                                placeholder="Email"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.email}
+                                name="email"
+                                className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
+                            />
+                            {touched.email && errors.email && (
+                                <p className="text-red-500 col-span-4">{errors.email}</p>
+                            )}
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                value={values.password}
+                                name="password"
+                                className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
+                            />
+                            {touched.password && errors.password && (
+                                <p className="text-red-500 col-span-4">{errors.password}</p>
+                            )}
+                            {error && (
+                                <p className="text-red-500 col-span-4">{error}</p>
+                            )}
 
-                        {/* BUTTONS */}
-                        <div className="col-span-4">
-                            <button
-                                type="submit"
-                                className="w-full py-2 border border-orange-500 bg-orange-500 hover:bg-transparent hover:border hover:border-solid hover:text-orange-500 hover:border-orange-500 text-white rounded"
-                            >
-                                {isLogin ? "LOGIN" : "REGISTER"}
-                            </button>
-                            <p
-                                onClick={() => {
-                                    setPageType(isLogin ? "register" : "login");
-                                    resetForm();
-                                    setError("");
-                                }}
-                                className="pt-5 text-black cursor-pointer hover:underline dark:text-white dark:hover:text-zinc-300"
-                            >
-                                {isLogin
-                                    ? "Don't have an account? Sign Up here."
-                                    : "Already have an account? Login here."}
-                            </p>
+                            {/* BUTTONS */}
+                            <div className="col-span-4">
+                                <button
+                                    type="submit"
+                                    className="w-full py-2 border border-orange-500 bg-orange-500 hover:bg-transparent hover:border hover:border-solid hover:text-orange-500 hover:border-orange-500 text-white rounded"
+                                >
+                                    {isLogin ? "LOGIN" : "REGISTER"}
+                                </button>
+                                <p
+                                    onClick={() => {
+                                        setPageType(isLogin ? "register" : "login");
+                                        resetForm();
+                                        setError("");
+                                    }}
+                                    className="pt-5 text-black cursor-pointer hover:underline dark:text-white dark:hover:text-zinc-300"
+                                >
+                                    {isLogin
+                                        ? "Don't have an account? Sign Up here."
+                                        : "Already have an account? Login here."}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            )}
-        </Formik>
+                        <div className="flex mt-5 justify-center w-full">
+                            <PulseLoader color="orange" loading={loading} size={15} />
+                        </div>
+                    </form>
+                )}
+            </Formik>
+        </>
+
     );
 };
 
