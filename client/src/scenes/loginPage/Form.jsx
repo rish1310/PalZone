@@ -15,7 +15,7 @@ const registerSchema = yup.object().shape({
     password: yup.string().required("Required"),
     location: yup.string().required("Required"),
     occupation: yup.string().required("Required"),
-    picture: yup.string().required("Required"),
+    picture: yup.mixed().required("Please upload a picture"),
 });
 
 const loginSchema = yup.object().shape({
@@ -155,6 +155,7 @@ const Form = () => {
                                         {touched.lastName && errors.lastName && (
                                             <p className="text-red-500">{errors.lastName}</p>
                                         )}
+
                                     </div>
                                     <input
                                         type="text"
@@ -165,6 +166,9 @@ const Form = () => {
                                         name="location"
                                         className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800 "
                                     />
+                                    {touched.location && errors.location && (
+                                        <p className="text-red-500">{errors.location}</p>
+                                    )}
                                     <input
                                         type="text"
                                         placeholder="Occupation"
@@ -174,6 +178,9 @@ const Form = () => {
                                         name="occupation"
                                         className="col-span-4 w-full p-2 border border-zinc-300 rounded hover:border-zinc-400 focus:outline-none focus:border-zinc-500 dark:bg-zinc-800"
                                     />
+                                    {touched.occupation && errors.occupation && (
+                                        <p className="text-red-500">{errors.occupation}</p>
+                                    )}
                                     <div className="col-span-4 border border-zinc-300 rounded p-4">
                                         <Dropzone
                                             acceptedFiles=".jpg,.jpeg,.png"
@@ -200,6 +207,7 @@ const Form = () => {
                                                 </div>
                                             )}
                                         </Dropzone>
+                                        {errors.picture && <p className="text-red-500">{errors.picture}</p>}
                                     </div>
                                 </>
                             )}

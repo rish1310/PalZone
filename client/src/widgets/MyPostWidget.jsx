@@ -97,9 +97,9 @@ const MyPostWidget = ({ picturePath }) => {
                     </div> */}
 
                     <button
-                        disabled={!post}
+                        disabled={!post || !image}
                         onClick={handlePost}
-                        className={`px-4 py-2 rounded-full bg-orange-600 text-white font-medium focus:outline-none ${!post && 'opacity-50 cursor-not-allowed'} ${post && 'hover:bg-orange-500'}`}
+                        className={`px-4 py-2 rounded-full bg-orange-600 text-white font-medium focus:outline-none ${(!post || !image) && 'opacity-50 cursor-not-allowed'} ${(post && image) && 'hover:bg-orange-500 cursor-pointer'}`}
                     >
                         POST
                     </button>
