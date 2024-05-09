@@ -70,11 +70,32 @@ const Form = () => {
             }
         );
         const savedUser = await savedUserResponse.json();
-        onSubmitProps.resetForm();
 
         if (savedUser) {
-            setPageType("login");
+            const loggedInResponse = await fetch("https://palzone.onrender.com/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: values.email,
+                    password: values.password
+                }),
+            });
+            const loggedIn = await loggedInResponse.json();
+            if (loggedIn.token) {
+                dispatch(
+                    setLogin({
+                        user: loggedIn.user,
+                        token: loggedIn.token,
+                    })
+                );
+                navigate("/home");
+            } else {
+                setError("Login failed after registration.");
+            }
+        } else {
+            setError("Registration failed.");
         }
+
         setLoading(false);
     };
 
