@@ -27,7 +27,7 @@ Watch this demo video to see Palzone in action!
 
 ## Live Website Link
 
-[Access Palzone](https://palzone-app.vercel.app/)
+[Access Palzone](https://palzone.vercel.app/)
 
 Join Palzone and start connecting with people around the world!
 
