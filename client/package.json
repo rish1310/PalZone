@@ -23,6 +23,7 @@
     "react-router-dom": "^6.23.0",
     "react-spinners": "^0.13.8",
     "redux-persist": "^6.0.0",
+    "vite-plugin-pwa": "^0.20.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
