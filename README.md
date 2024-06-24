@@ -41,3 +41,7 @@ To get started with Palzone, follow these steps:
 4. Enjoy the social experience on Palzone!
 
 **Connect with the world and make new friends with Palzone!** 🌟
+
+### Dark mode toggle credits 
+
+https://uiverse.io/Galahhad/strong-squid-82
